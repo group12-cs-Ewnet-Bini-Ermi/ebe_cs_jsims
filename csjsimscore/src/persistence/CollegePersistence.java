@@ -21,7 +21,7 @@ public class CollegePersistence implements ICollegePersistence {
     @Override
     public boolean save(College college) throws SQLException {
         int affectedRow;
-        String query = "Insert into college (name) Values(?)";
+        String query = "Insert into COLLEGE (COLLEGENAME) Values(?)";
         try (Connection conn = DbConnection.getConnection()) {
             try (PreparedStatement prepare = conn.prepareStatement(query)) {
                 prepare.setString(1, college.getName());
@@ -34,14 +34,14 @@ public class CollegePersistence implements ICollegePersistence {
     @Override
     public List<College> getAll() throws SQLException {
         List<College> colleges = new ArrayList<College>();
-        String sql = "Select * from college Order By name ASC";
+        String sql = "Select * from COLLEGE Order By COLLEGENAME ASC";
         Connection conn = DbConnection.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rslt = stmt.executeQuery();
         while (rslt.next()) {
             College college = new College();
-            college.setId(rslt.getInt("id"));
-            college.setName(rslt.getString("name"));
+            college.setId(rslt.getInt("COLLEGEID"));
+            college.setName(rslt.getString("COLLEGENAME"));
             colleges.add(college);
         }
 
